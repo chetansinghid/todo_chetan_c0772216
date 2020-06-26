@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var categoryContext: NSManagedObjectContext!
-    var resultsController: NSFetchedResultsController<Category>!
+//    var resultsController: NSFetchedResultsController<Category>!
     
     var categoryName = UITextField()
     var categoryArray: [Category] = [Category]()
@@ -102,7 +102,7 @@ extension ViewController {
     }
     
     func addNewCategory() {
-        print("addNewCategory")
+        
         let categoryNames = self.categoryArray.map {$0.name}
         guard !categoryNames.contains(categoryName.text) else {self.showAlert(); return}
         let newCategory = Category(context: self.categoryContext)

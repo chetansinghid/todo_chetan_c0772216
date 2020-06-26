@@ -133,11 +133,11 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="100.44642857142857"/>
         </scene>
-        <!--View Controller-->
+        <!--Todo View Controller-->
         <scene sceneID="Hdl-0w-9E1">
             <objects>
-                <viewController id="uzU-aK-Lmp" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="kP0-9i-doS">
+                <viewController id="uzU-aK-Lmp" customClass="TodoViewController" customModule="todo_chetan_c0772216" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kP0-9i-doS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -186,6 +186,9 @@
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="deleteTask:" destination="uzU-aK-Lmp" eventType="touchUpInside" id="s7x-B3-XZG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-iQ-iuo">
                                         <rect key="frame" x="207" y="0.0" width="114" height="39"/>
@@ -194,6 +197,9 @@
                                         <state key="normal" title="Completed">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="markCompleted:" destination="uzU-aK-Lmp" eventType="touchUpInside" id="Zqa-ug-P0h"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -217,10 +223,20 @@
                         <viewLayoutGuide key="safeArea" id="YvN-cf-5Nt"/>
                     </view>
                     <navigationItem key="navigationItem" id="c3S-3e-2Qm">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="mQa-39-kg0"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="mQa-39-kg0">
+                            <connections>
+                                <action selector="saveTask:" destination="uzU-aK-Lmp" id="972-dV-IzA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="deadlineLabel" destination="ZA5-xE-WJQ" id="hhp-90-shi"/>
+                        <outlet property="todoTitleLabel" destination="AaY-dA-dmi" id="YN4-8U-lTN"/>
+                        <segue destination="hug-5F-HtZ" kind="unwind" identifier="goBackToList" unwindAction="unwind:" id="F60-Kc-oHB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wtk-xM-yWE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="hug-5F-HtZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2452.1739130434785" y="98.4375"/>
         </scene>
