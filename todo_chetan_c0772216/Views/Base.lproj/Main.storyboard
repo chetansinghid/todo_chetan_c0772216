@@ -230,13 +230,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonStack" destination="xad-Mx-ieC" id="cri-ld-fph"/>
                         <outlet property="deadlineLabel" destination="ZA5-xE-WJQ" id="hhp-90-shi"/>
                         <outlet property="todoTitleLabel" destination="AaY-dA-dmi" id="YN4-8U-lTN"/>
-                        <segue destination="hug-5F-HtZ" kind="unwind" identifier="goBackToList" unwindAction="unwind:" id="F60-Kc-oHB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wtk-xM-yWE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="hug-5F-HtZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2452.1739130434785" y="98.4375"/>
         </scene>

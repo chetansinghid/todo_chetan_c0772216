@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         
         initializeCoreData()
         setUpTableView()
+        firstTimeSetup()
     }
     
     @IBAction func addCategory(_ sender: Any) {
@@ -84,6 +85,21 @@ extension ViewController {
         
     }
     
+//    Initializes a default archived folder
+    func firstTimeSetup() {
+        let categoryNames = self.categoryArray.map {$0.name}
+        guard !categoryNames.contains("Archived") else {return}
+        let newCategory = Category(context: self.categoryContext)
+        newCategory.name = "Archived"
+        self.categoryArray.append(newCategory)
+        do {
+            try categoryContext.save()
+            tableView.reloadData()
+        } catch {
+            print("Error saving categories \(error.localizedDescription)")
+        }
+    }
+    
     
     func fetchCategoryData() {
 //        request
@@ -123,6 +139,14 @@ extension ViewController {
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
 
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! TaskListViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destination.selectedCategory = categoryArray[indexPath.row]
+        }
     }
     
 }
@@ -172,6 +196,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         delete.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         delete.image = UIImage(systemName: "trash.fill")
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "noteListScreen", sender: self)
     }
 }
 

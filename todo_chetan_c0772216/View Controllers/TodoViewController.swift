@@ -10,66 +10,57 @@ import UIKit
 import CoreData
 
 class TodoViewController: UIViewController {
-    
-    enum exitCode {
-        case save
-        case delete
-        case completed
-    }
-    
-    var exitStatus: exitCode!
+
     
     @IBOutlet weak var todoTitleLabel: UITextField!
-    var titleText: String?
-    var date: Date?
+    var todo: Todo?
+    
+    var delegate: TaskListViewController?
+    
     @IBOutlet weak var deadlineLabel: UIDatePicker!
     
+    @IBOutlet weak var buttonStack: UIStackView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        if let text = titleText {
-            todoTitleLabel.text = text
-        }
-        if let dateVal = date {
-            deadlineLabel.date = dateVal
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationView = segue.destination as? TaskListViewController {
-            switch exitStatus {
-            case .completed:
-                destinationView.isComplete = true
-                destinationView.updatedTitle = todoTitleLabel.text
-                destinationView.updatedTime = deadlineLabel.date
-            case .delete:
-                destinationView.isDeleted = true
-            case .save:
-                destinationView.isSaved = true
-                destinationView.updatedTitle = todoTitleLabel.text
-                destinationView.updatedTime = deadlineLabel.date
-            default:
-                destinationView.isDiscard = true
-            }
+        if let todoData = todo
+        {
+            todoTitleLabel.text = todoData.name
+            deadlineLabel.date = todoData.due_date!
         }
     }
     
     
     @IBAction func saveTask(_ sender: Any) {
-        if(checkTitle()) {
-            exitStatus = exitCode.save
-            performSegue(withIdentifier: "goBackToList", sender: self)
+        if(checkTitle())
+        {
+            if todo == nil
+            {
+                delegate?.saveTodo(title: todoTitleLabel!.text!, dueDate: deadlineLabel!.date)
+            }
+            else
+            {
+                todo?.name = todoTitleLabel!.text!
+                todo?.due_date = deadlineLabel!.date
+                delegate?.updateTodo()
+            }
+            navigationController?.popViewController(animated: true)
         }
     }
     @IBAction func markCompleted(_ sender: Any) {
+        
         if(checkTitle()) {
-             exitStatus = exitCode.completed
-             performSegue(withIdentifier: "goBackToList", sender: self)
+            todo?.name = todoTitleLabel!.text!
+            todo?.due_date = deadlineLabel!.date
+            delegate?.markTodoCompleted()
+            navigationController?.popViewController(animated: true)
         }
+        
     }
     @IBAction func deleteTask(_ sender: Any) {
-        exitStatus = exitCode.delete
-        performSegue(withIdentifier: "goBackToList", sender: self)
+        
+        delegate?.deleteTodoFromList()
+        navigationController?.popViewController(animated: true)
     }
     
     func checkTitle() -> Bool {
