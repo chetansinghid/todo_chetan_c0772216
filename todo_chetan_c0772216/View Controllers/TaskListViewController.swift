@@ -24,6 +24,7 @@ class TaskListViewController: UIViewController {
     
     @IBAction func addTodo(_ sender: Any) {
         
+        performSegue(withIdentifier: "todoViewScreen", sender: self)
         
     }
     
