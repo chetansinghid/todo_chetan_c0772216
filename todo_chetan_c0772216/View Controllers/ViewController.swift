@@ -141,10 +141,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
             
-            
-            //        reloads data
-            self.tableView.reloadData()
-            completion(true)
+                self.categoryContext.delete(self.categoryArray[indexPath.row])
+                self.categoryArray.remove(at: indexPath.row)
+                do {
+                    try self.categoryContext.save()
+                } catch {
+                    print("Error saving the context \(error.localizedDescription)")
+                }
+                
+                //        reloads data
+                self.tableView.reloadData()
+                completion(true)
         }
         
         delete.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
