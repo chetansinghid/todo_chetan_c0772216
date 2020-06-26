@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         alert.addTextField(configurationHandler: addCategoryName(textField:))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
             if(self.categoryName.text!.count < 1) {
+                self.emptyFieldAlert()
                 return
             }
             else {
@@ -43,6 +44,20 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
 
+    }
+    
+    @IBAction func showInfo(_ sender: Any) {
+        
+        performSegue(withIdentifier: "noteListScreen", sender: self)
+        
+    }
+    
+    func emptyFieldAlert() {
+        
+        let alert = UIAlertController(title: "Oops!", message: "Name can't be empty", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func addCategoryName(textField: UITextField) {
