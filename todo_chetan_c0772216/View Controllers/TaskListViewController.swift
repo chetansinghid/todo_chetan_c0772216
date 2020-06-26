@@ -55,6 +55,7 @@ class TaskListViewController: UIViewController {
         }
         if(isSaved) {
             saveTodo()
+            
         }
         if(isDeleted) {
             deleteTodo()
@@ -85,7 +86,7 @@ extension TaskListViewController {
             addNewTodo()
         }
         else {
-            
+            updateTodo()
         }
         isNew = false
     }
@@ -153,11 +154,19 @@ extension TaskListViewController {
     }
     
     func updateTodo() {
+        
+        let date = tasksArray[selectedTodo].date
+        self.todoListContext.delete(self.tasksArray[selectedTodo])
+        self.tasksArray.remove(at: selectedTodo)
+        do {
+            try self.todoListContext.save()
+        } catch {
+            print("Error saving the context \(error.localizedDescription)")
+        }
         let newTodo = Todo(context: self.todoListContext)
         newTodo.name = updatedTitle
-        newTodo.date = tasksArray[selectedTodo].date
+        newTodo.date = date
         newTodo.due_date = updatedTime
-        self.tasksArray.remove(at: selectedTodo)
         self.tasksArray.insert(newTodo, at: selectedTodo)
         do {
             try todoListContext.save()
@@ -169,13 +178,14 @@ extension TaskListViewController {
     
     func removeTodo() {
         
+        self.todoListContext.delete(self.tasksArray[selectedTodo])
         self.tasksArray.remove(at: selectedTodo)
         do {
-            try todoListContext.save()
-            tableView.reloadData()
+            try self.todoListContext.save()
         } catch {
-            print("Error saving categories \(error.localizedDescription)")
+            print("Error saving the context \(error.localizedDescription)")
         }
+        tableView.reloadData()
     }
 }
 
