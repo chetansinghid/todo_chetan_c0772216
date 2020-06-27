@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8435852324A712CB000E1E9A /* MoveTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435852224A712CB000E1E9A /* MoveTodoViewController.swift */; };
 		843A145324A5980C00F18F5E /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843A145224A5980C00F18F5E /* TodoViewController.swift */; };
 		8485D5C324A59A4100AB7350 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F93424A45D5E009822E4 /* TaskListViewController.swift */; };
 		84C1F91824A454B4009822E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F91724A454B4009822E4 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8435852224A712CB000E1E9A /* MoveTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTodoViewController.swift; sourceTree = "<group>"; };
 		843A145224A5980C00F18F5E /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		84C1F91424A454B4009822E4 /* todo_chetan_c0772216.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todo_chetan_c0772216.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C1F91724A454B4009822E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				84C1F91B24A454B4009822E4 /* ViewController.swift */,
 				84C1F93424A45D5E009822E4 /* TaskListViewController.swift */,
 				843A145224A5980C00F18F5E /* TodoViewController.swift */,
+				8435852224A712CB000E1E9A /* MoveTodoViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				843A145324A5980C00F18F5E /* TodoViewController.swift in Sources */,
 				84C1F92F24A45C22009822E4 /* TodoItem.swift in Sources */,
 				84C1F92224A454B4009822E4 /* todo_chetan_c0772216.xcdatamodeld in Sources */,
+				8435852324A712CB000E1E9A /* MoveTodoViewController.swift in Sources */,
 				84C1F91C24A454B4009822E4 /* ViewController.swift in Sources */,
 				8485D5C324A59A4100AB7350 /* TaskListViewController.swift in Sources */,
 				84C1F91824A454B4009822E4 /* AppDelegate.swift in Sources */,
