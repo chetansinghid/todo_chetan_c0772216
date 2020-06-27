@@ -1,8 +1,8 @@
 # todo_chetan_c0772216
 Final assignment app
 
-<b>My Todo List 
-This is a task monitoring app. Some of the features:
+<b>My Todo List <br/>
+This is a task monitoring app. Some of the features:<br/>
   
 <b>Home Screen with categories
 
@@ -13,13 +13,17 @@ This is a task monitoring app. Some of the features:
 <img width="321" alt="Screen Shot 2020-06-27 at 1 52 19 PM" src="https://user-images.githubusercontent.com/60823789/85930986-acab5d80-b88e-11ea-8278-155a9bb7d166.png">
 
 <b>Sort todos (by name and date created)
+ <br/>
 <img width="321" alt="Screen Shot 2020-06-27 at 1 52 00 PM" src="https://user-images.githubusercontent.com/60823789/85930944-56d6b580-b88e-11ea-8155-76cbb5356a38.png">
   
-<b>Mark todo completed and move todo by swiping
+  
+<b>Mark todo completed, Move todo by swiping right and delete todo by swiping left<br/>Completing todo as marked moves todo to Archived default category<br/>
 
 <img width="321" alt="Screen Shot 2020-06-27 at 1 52 42 PM" src="https://user-images.githubusercontent.com/60823789/85930908-2abb3480-b88e-11ea-9651-269882bd600b.png">
 
 <b>Search todos
+
+<img width="321" alt="Screen Shot 2020-06-27 at 1 55 38 PM" src="https://user-images.githubusercontent.com/60823789/85931110-cf8a4180-b88f-11ea-98de-afb6575ceae2.png">
 
 
 <b>User Notifications for due tasks
