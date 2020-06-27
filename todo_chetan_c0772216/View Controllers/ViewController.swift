@@ -233,7 +233,7 @@ extension ViewController {
                     notificationContent.title = "Task Reminder"
                     notificationContent.body = "Just a friendly reminder that \(name) is due tommorow"
                     notificationContent.sound = .default
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
                     let request = UNNotificationRequest(identifier: "\(name)taskid", content: notificationContent, trigger: trigger)
                     notificationCenter.add(request) { (error) in
                         if error != nil {
