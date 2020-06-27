@@ -141,16 +141,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What needs to be done?" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="AaY-dA-dmi">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What needs to be done?" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="AaY-dA-dmi">
                                 <rect key="frame" x="20" y="151" width="375" height="34"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="ujE-cl-hfF"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <datePicker contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" id="ZA5-xE-WJQ">
+                            <datePicker clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" id="ZA5-xE-WJQ">
                                 <rect key="frame" x="24" y="247" width="367" height="162"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -158,9 +155,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's the deadline?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LLU-vx-OpG">
                                 <rect key="frame" x="24" y="204" width="160" height="21"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="cJf-KV-EpK"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -168,9 +162,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's sort your task!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7hg-sm-ws1">
                                 <rect key="frame" x="24" y="109" width="151" height="20.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20.5" id="8sY-dp-9V1"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -190,7 +181,7 @@
                                             <action selector="deleteTask:" destination="uzU-aK-Lmp" eventType="touchUpInside" id="s7x-B3-XZG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-iQ-iuo">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QB6-iQ-iuo">
                                         <rect key="frame" x="207" y="0.0" width="114" height="39"/>
                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -205,21 +196,6 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="ZA5-xE-WJQ" firstAttribute="top" secondItem="LLU-vx-OpG" secondAttribute="bottom" constant="22" id="0dr-Gb-Ke9"/>
-                            <constraint firstItem="AaY-dA-dmi" firstAttribute="top" secondItem="7hg-sm-ws1" secondAttribute="bottom" constant="21.5" id="4Gh-Wk-3Te"/>
-                            <constraint firstItem="AaY-dA-dmi" firstAttribute="trailing" secondItem="kP0-9i-doS" secondAttribute="trailingMargin" id="5I8-bU-MUc"/>
-                            <constraint firstItem="YvN-cf-5Nt" firstAttribute="bottom" secondItem="xad-Mx-ieC" secondAttribute="bottom" constant="373" id="5O5-tg-rbV"/>
-                            <constraint firstItem="AaY-dA-dmi" firstAttribute="leading" secondItem="kP0-9i-doS" secondAttribute="leadingMargin" id="7YB-j4-Gym"/>
-                            <constraint firstItem="AaY-dA-dmi" firstAttribute="centerX" secondItem="ZA5-xE-WJQ" secondAttribute="centerX" id="8m4-wY-ktT"/>
-                            <constraint firstItem="LLU-vx-OpG" firstAttribute="top" secondItem="AaY-dA-dmi" secondAttribute="bottom" constant="19" id="EGD-KH-OnN"/>
-                            <constraint firstItem="7hg-sm-ws1" firstAttribute="leading" secondItem="LLU-vx-OpG" secondAttribute="leading" id="IPq-Wj-FK6"/>
-                            <constraint firstItem="LLU-vx-OpG" firstAttribute="leading" secondItem="ZA5-xE-WJQ" secondAttribute="leading" id="VwD-yQ-aS7"/>
-                            <constraint firstItem="7hg-sm-ws1" firstAttribute="top" secondItem="YvN-cf-5Nt" secondAttribute="top" constant="21" id="Wt5-fp-Om4"/>
-                            <constraint firstItem="7hg-sm-ws1" firstAttribute="leading" secondItem="YvN-cf-5Nt" secondAttribute="leading" constant="24" id="Zxz-Vg-r2j"/>
-                            <constraint firstItem="xad-Mx-ieC" firstAttribute="top" secondItem="ZA5-xE-WJQ" secondAttribute="bottom" constant="41" id="lVj-N0-mDa"/>
-                            <constraint firstItem="xad-Mx-ieC" firstAttribute="leading" secondItem="YvN-cf-5Nt" secondAttribute="leading" constant="43" id="wdf-2y-aBI"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="YvN-cf-5Nt"/>
                     </view>
                     <navigationItem key="navigationItem" id="c3S-3e-2Qm">

@@ -23,6 +23,9 @@ class TodoViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        if todo == nil {
+            buttonStack.isHidden = true
+        }
         if let todoData = todo
         {
             todoTitleLabel.text = todoData.name
@@ -47,6 +50,7 @@ class TodoViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }
     }
+    
     @IBAction func markCompleted(_ sender: Any) {
         
         if(checkTitle()) {
@@ -57,6 +61,7 @@ class TodoViewController: UIViewController {
         }
         
     }
+    
     @IBAction func deleteTask(_ sender: Any) {
         
         delegate?.deleteTodoFromList()

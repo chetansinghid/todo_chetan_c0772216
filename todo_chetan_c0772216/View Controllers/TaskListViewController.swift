@@ -11,6 +11,7 @@ import CoreData
 
 class TaskListViewController: UIViewController {
     
+    var selectedSort = 0
     var selectedCategory: Category? {
         didSet {
             loadTodos()
@@ -22,6 +23,9 @@ class TaskListViewController: UIViewController {
     var tasksArray = [Todo]()
     var selectedTodo: Todo?
     
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     //    outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -30,7 +34,7 @@ class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        
+        showSearchBar()
     }
     
     
@@ -39,9 +43,18 @@ class TaskListViewController: UIViewController {
     }
     
     
-    @IBAction func sortTodos(_ sender: Any) {
-        //        fetchTaskData(sort: "date")
-        //        fetchTaskData(sort: "name")
+    @IBAction func sortTodos(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0: selectedSort = 0
+            break
+        case 1: selectedSort = 1
+            break
+        default:
+            break
+        }
+        
+        loadTodos()
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,6 +69,7 @@ class TaskListViewController: UIViewController {
         
     }
     
+    
 }
 
 
@@ -64,8 +78,9 @@ extension TaskListViewController {
     
     func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest(), predicate: NSPredicate? = nil) {
         
+        let sortOptions = ["date", "name"]
         let todoPredicate = NSPredicate(format: "parentFolder.name=%@", selectedCategory!.name!)
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: sortOptions[selectedSort], ascending: true)]
         if let addtionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [todoPredicate, addtionalPredicate])
         } else {
@@ -81,11 +96,13 @@ extension TaskListViewController {
     }
     
     func deleteTodoFromList() {
+        
         todoListContext.delete(selectedTodo!)
         tasksArray.removeAll { (Todo) -> Bool in
             Todo == selectedTodo!
         }
         tableView.reloadData()
+        
     }
     
     
@@ -103,17 +120,19 @@ extension TaskListViewController {
     }
     
     func markTodoCompleted() {
-        let request: NSFetchRequest<Category> = Category.fetchRequest()
         
-        // predicate if you want
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request: NSFetchRequest<Category> = Category.fetchRequest()
         let folderPredicate = NSPredicate(format: "name MATCHES %@", "Archived")
         request.predicate = folderPredicate
         do {
-            let category = try todoListContext.fetch(request)
+            let category = try context.fetch(request)
             self.selectedTodo?.parentFolder = category.first
             saveTodos()
+            tasksArray.removeAll { (Todo) -> Bool in
+                Todo == selectedTodo!
+            }
             tableView.reloadData()
-            
         } catch {
             print("Error fetching data \(error.localizedDescription)")
         }
@@ -159,7 +178,12 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
         let task = tasksArray[indexPath.row]
         cell.textLabel?.text = task.name
-        
+        if task.due_date! < Date() {
+            cell.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        }
+        if Calendar.current.isDateInToday(task.due_date!) {
+            cell.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        }
         return cell
     }
     
@@ -168,8 +192,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.todoListContext.delete(self.tasksArray[indexPath.row])
             self.tasksArray.remove(at: indexPath.row)
-            
-//            self.saveTodos()
             tableView.deleteRows(at: [indexPath], with: .fade)
             completion(true)
         }
@@ -179,8 +201,57 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTodo = tasksArray[indexPath.row]
         performSegue(withIdentifier: "todoViewScreen", sender: self)
     }
 }
+
+extension TaskListViewController: UISearchBarDelegate {
+    
+    func showSearchBar() {
+        
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Folder"
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+        searchController.searchBar.searchTextField.textColor = .white
+        
+    }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+                
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        loadTodos(predicate: predicate)
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadTodos()
+
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+
+        }
+        loadTodos()
+        tableView.reloadData()
+    }
+    
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        loadTodos()
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+}
+
