@@ -233,7 +233,10 @@ extension ViewController {
                     notificationContent.title = "Task Reminder"
                     notificationContent.body = "Just a friendly reminder that \(name) is due tommorow"
                     notificationContent.sound = .default
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+//                    sets up notification for a day before the task
+                    let fromDate = Calendar.current.date(byAdding: .day, value: -1, to: task.due_date!)!
+                    let components = Calendar.current.dateComponents([.month, .day, .year], from: fromDate)
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                     let request = UNNotificationRequest(identifier: "\(name)taskid", content: notificationContent, trigger: trigger)
                     notificationCenter.add(request) { (error) in
                         if error != nil {
