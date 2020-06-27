@@ -8,13 +8,14 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var categoryContext: NSManagedObjectContext!
-//    var resultsController: NSFetchedResultsController<Category>!
+    var notificationArray = [Todo]()
     
     var categoryName = UITextField()
     var categoryArray: [Category] = [Category]()
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         initializeCoreData()
         setUpTableView()
         firstTimeSetup()
+        setUpNotifications()
     }
     
     @IBAction func addCategory(_ sender: Any) {
@@ -153,6 +155,8 @@ extension ViewController {
 
 
 
+
+//MARK: implements table view methods
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
 //    MARK: does inital table view setup
@@ -203,3 +207,53 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+
+
+//MARK: implements notification center methods
+extension ViewController {
+    
+    func setUpNotifications() {
+        
+        checkDueTasks()
+        if notificationArray.count > 0 {
+            for task in notificationArray {
+                
+                if let name = task.name {
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    let notificationContent = UNMutableNotificationContent()
+                    
+                    notificationContent.title = "Task Reminder"
+                    notificationContent.body = "\(name) is pending! Head to My task app to change its status"
+                    notificationContent.sound = .default
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
+                    let request = UNNotificationRequest(identifier: "\(name)taskid", content: notificationContent, trigger: trigger)
+                    notificationCenter.add(request) { (error) in
+                        if error != nil {
+                            print(error ?? "notification center error")
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func checkDueTasks() {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request: NSFetchRequest<Todo> = Todo.fetchRequest()
+        do {
+            let notifications = try context.fetch(request)
+            for task in notifications {
+                if Calendar.current.isDateInTomorrow(task.due_date!) {
+                    notificationArray.append(task)
+                }
+            }
+        } catch {
+            print("Error loading todos \(error.localizedDescription)")
+        }
+        
+    }
+    
+}
