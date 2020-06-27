@@ -50,8 +50,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showInfo(_ sender: Any) {
-        
-        performSegue(withIdentifier: "noteListScreen", sender: self)
+        let msg = "This is a todo list app to track your tasks\n\n1.Add categories and todos for each category\n\nY2.By swiping right you can move todos or mark them as completed\n\n3.Due tasks are shown in green, missed tasks in red\n\n4.Completed tasks are moved to archive category"
+        let alert = UIAlertController(title: "Welcome to My Todo List", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cool!", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
         
     }
     

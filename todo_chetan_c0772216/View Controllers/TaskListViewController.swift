@@ -35,6 +35,7 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         showSearchBar()
+        categoryLabel.text = selectedCategory!.name
     }
     
     
