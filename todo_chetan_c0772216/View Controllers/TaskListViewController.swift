@@ -130,6 +130,8 @@ extension TaskListViewController {
         tableView.reloadData()
     }
     
+    
+//    sends the todos to archived folder if saved
     func markTodoCompleted() {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -165,7 +167,6 @@ extension TaskListViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         selectedTodo = nil
-//        tableView.reloadData()
     }
     
 }
@@ -190,10 +191,12 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
         let task = tasksArray[indexPath.row]
         cell.textLabel?.text = task.name
-        if task.due_date! < Date() {
+//        sets color of missed tasks in categories except Archived
+        if (task.due_date! < Date() && task.parentFolder?.name != "Archived") {
             cell.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
-        if Calendar.current.isDateInToday(task.due_date!) {
+//        sets color of due tasks in categories except Archived
+        if (Calendar.current.isDateInToday(task.due_date!) && task.parentFolder?.name != "Archived") {
             cell.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         }
         return cell
@@ -235,6 +238,8 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+//MARK: implemenets search bar methods
 extension TaskListViewController: UISearchBarDelegate {
     
     func showSearchBar() {
@@ -247,7 +252,6 @@ extension TaskListViewController: UISearchBarDelegate {
         searchController.searchBar.searchTextField.textColor = .white
         
     }
-    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
                 

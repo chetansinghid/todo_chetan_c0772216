@@ -13,8 +13,9 @@ class TodoViewController: UIViewController {
 
     
     @IBOutlet weak var todoTitleLabel: UITextField!
-    var todo: Todo?
     
+    var todo: Todo?
+//    delegate for previous screen to call methods
     var delegate: TaskListViewController?
     
     @IBOutlet weak var deadlineLabel: UIDatePicker!
@@ -23,9 +24,11 @@ class TodoViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+//        hides completed and deleted buttons if new todo
         if todo == nil {
             buttonStack.isHidden = true
         }
+//        sets the field values if old todo opened
         if let todoData = todo
         {
             todoTitleLabel.text = todoData.name
@@ -68,6 +71,8 @@ class TodoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    
+//    method to check weather title is empty or not
     func checkTitle() -> Bool {
         if (todoTitleLabel.text?.isEmpty ?? true) {
             let alert = UIAlertController(title: "Title can't be blank!", message: "", preferredStyle: .alert)

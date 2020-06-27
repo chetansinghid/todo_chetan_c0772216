@@ -137,7 +137,7 @@ extension ViewController {
         
     }
     
-    
+//    to be shown if user enters existing category name
     func showAlert() {
         let alert = UIAlertController(title: "Category Already Exists!", message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -178,6 +178,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         let category = categoryArray[indexPath.row]
+//        sets different color for archived category
         if category.name == "Archived" {
             cell.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         }
@@ -218,6 +219,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: implements notification center methods
 extension ViewController {
     
+//    sets up notifications for the tasks
     func setUpNotifications() {
         
         checkDueTasks()
@@ -244,10 +246,14 @@ extension ViewController {
         
     }
     
+//    fetches the list of due tasks
     func checkDueTasks() {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request: NSFetchRequest<Todo> = Todo.fetchRequest()
+//        removes the tasks in archived as they are completed
+        let folderPredicate = NSPredicate(format: "NOT parentFolder.name MATCHES %@", "Archived")
+        request.predicate = folderPredicate
         do {
             let notifications = try context.fetch(request)
             for task in notifications {
