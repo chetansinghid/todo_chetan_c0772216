@@ -229,7 +229,7 @@ extension ViewController {
                     let notificationContent = UNMutableNotificationContent()
                     
                     notificationContent.title = "Task Reminder"
-                    notificationContent.body = "\(name) is pending! Head to My task app to change its status"
+                    notificationContent.body = "Just a friendly reminder that \(name) is due tommorow"
                     notificationContent.sound = .default
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
                     let request = UNNotificationRequest(identifier: "\(name)taskid", content: notificationContent, trigger: trigger)
