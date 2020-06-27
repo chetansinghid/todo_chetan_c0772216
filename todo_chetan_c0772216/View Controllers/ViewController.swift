@@ -251,9 +251,6 @@ extension ViewController {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request: NSFetchRequest<Todo> = Todo.fetchRequest()
-//        removes the tasks in archived as they are completed
-        let folderPredicate = NSPredicate(format: "NOT parentFolder.name MATCHES %@", "Archived")
-        request.predicate = folderPredicate
         do {
             let notifications = try context.fetch(request)
             for task in notifications {
